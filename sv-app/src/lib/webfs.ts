@@ -4,10 +4,10 @@ function generateUUID (): string {
 	return crypto.randomUUID();
 }
 
-export function createNodeDS (params: {
+export function getEmptyNode (params: {
 	name: string;
 	type: NodeType;
-	parentId: string | null
+	parentId: string
 }): NodeDS {
 	const now = Date.now();
 	const isFile = params.type === 'file';

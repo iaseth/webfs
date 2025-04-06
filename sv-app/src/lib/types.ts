@@ -4,7 +4,7 @@ export type NodeType = 'folder' | 'file';
 export interface NodeDS {
 	id: string;
 	name: string;
-	parentId: string | null;
+	parentId: string;
 	type: NodeType;
 	isFile: boolean,
 	isFolder: boolean,
