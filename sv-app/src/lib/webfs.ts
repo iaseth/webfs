@@ -17,8 +17,8 @@ export function getEmptyNode (params: {
 		name: params.name,
 		parentId: params.parentId,
 		type: params.type,
+		isDirectory: !isFile,
 		isFile,
-		isFolder: !isFile,
 
 		content: '',
 		createdAt: now,

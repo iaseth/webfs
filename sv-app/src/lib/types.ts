@@ -1,13 +1,13 @@
 
-export type NodeType = 'folder' | 'file';
+export type NodeType = 'directory' | 'file';
 
 export interface NodeDS {
 	id: string;
 	name: string;
 	parentId: string;
 	type: NodeType;
+	isDirectory: boolean,
 	isFile: boolean,
-	isFolder: boolean,
 
 	content: string;
 	createdAt: number;

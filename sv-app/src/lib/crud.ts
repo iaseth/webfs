@@ -48,7 +48,7 @@ export async function addEmptyFileIntoDB (name: string, parentId: string): Promi
 }
 
 export async function addEmptyDirectoryIntoDB (name: string, parentId: string): Promise<boolean> {
-	const directoryNode = getEmptyNode({ name, type: 'folder', parentId });
+	const directoryNode = getEmptyNode({ name, type: 'directory', parentId });
 	return addNodeIntoDB(directoryNode);
 }
 
