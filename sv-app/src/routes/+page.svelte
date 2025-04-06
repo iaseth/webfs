@@ -1,12 +1,12 @@
 
 <script lang="ts">
-	import { addEmptyFileIntoDB, getChildrenFromDB } from "$lib/crud";
+	import { addEmptyFileIntoDB } from "$lib/crud";
 	import { clearDB, deleteDB } from "$lib/db";
+	import FileManager from "../screens/FileManager/FileManager.svelte";
+	import TextEditor from "../screens/TextEditor/TextEditor.svelte";
 
 	let currentDirectoryId: string = $state('');
-	let currentDirectoryItems = $derived.by(async () => {
-		return await getChildrenFromDB(currentDirectoryId);
-	});
+	let currentFileId: string = $state('');
 
 	function populateDummyFS () {
 		addEmptyFileIntoDB('foo.txt', currentDirectoryId);
@@ -45,17 +45,11 @@
 		</footer>
 	</aside>
 
-	<main class="flex-1 h-full flex items-center justify-center overflow-y-auto">
-		<article class="prose">
-			<h1>Welcome to WebFS</h1>
-
-			
-
-			{#await currentDirectoryItems}
-				Loading...
-			{:then currentDirectoryItems}
-				Found {currentDirectoryItems.length} items
-			{/await}
-		</article>
+	<main class="flex-1 h-full overflow-y-auto">
+		{#if currentFileId}
+			<TextEditor />
+		{:else}
+			<FileManager {currentDirectoryId} />
+		{/if}
 	</main>
 </section>
