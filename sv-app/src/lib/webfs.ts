@@ -25,13 +25,16 @@ export function getEmptyNode (params: {
 		updatedAt: now,
 
 		icon: '', // let UI decide default
-		isFavorite: false,
 		tags: [],
 		color: '',
 		order: 0,
+		size: 0,
+
+		favorited: false,
 		readOnly: false,
 		hidden: false,
-		size: 0,
+		deleted: false,
+		deletedAt: 0,
 
 		mimeType: isFile ? 'text/plain' : 'inode/directory',
 		openedAt: now

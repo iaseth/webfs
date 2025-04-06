@@ -14,13 +14,16 @@ export interface NodeDS {
 	updatedAt: number;
 
 	icon: string;
-	isFavorite: boolean;
 	tags: string[];
 	color: string;
 	order: number;
+	size: number;
+
+	favorited: boolean;
 	readOnly: boolean;
 	hidden: boolean;
-	size: number;
+	deleted: boolean;
+	deletedAt: number; // time when last deleted/restored
 
 	mimeType: string;
 	openedAt: number;
