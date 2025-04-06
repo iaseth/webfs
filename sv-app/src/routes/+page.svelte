@@ -1,6 +1,6 @@
 
 <script lang="ts">
-	import { addEmptyFileIntoDB } from "$lib/crud";
+	import { addEmptyFileIntoDB, addEmptyDirectoryIntoDB } from "$lib/crud";
 	import { clearDB, deleteDB } from "$lib/db";
 	import FileManager from "../screens/FileManager/FileManager.svelte";
 	import TextEditor from "../screens/TextEditor/TextEditor.svelte";
@@ -8,11 +8,21 @@
 	let currentDirectoryId: string = $state('');
 	let currentFileId: string = $state('');
 
+	const openFile = (id: string) => currentFileId = id;
+	const openDirectory = (id: string) => currentDirectoryId = id;
+	const closeFile = () => currentFileId = '';
+
 	function populateDummyFS () {
 		addEmptyFileIntoDB('foo.txt', currentDirectoryId);
 		addEmptyFileIntoDB('bar.txt', currentDirectoryId);
 		addEmptyFileIntoDB('cat.txt', currentDirectoryId);
 		addEmptyFileIntoDB('dog.txt', currentDirectoryId);
+
+		addEmptyDirectoryIntoDB('code', currentDirectoryId);
+		addEmptyDirectoryIntoDB('ebooks', currentDirectoryId);
+		addEmptyDirectoryIntoDB('images', currentDirectoryId);
+		addEmptyDirectoryIntoDB('audios', currentDirectoryId);
+		addEmptyDirectoryIntoDB('videos', currentDirectoryId);
 	}
 
 	let isDev = $state(false);
@@ -47,9 +57,9 @@
 
 	<main class="flex-1 h-full overflow-y-auto">
 		{#if currentFileId}
-			<TextEditor />
+			<TextEditor {currentFileId} {closeFile} />
 		{:else}
-			<FileManager {currentDirectoryId} />
+			<FileManager {currentDirectoryId} {openFile} {openDirectory} />
 		{/if}
 	</main>
 </section>
