@@ -1,15 +1,18 @@
 
 <script lang="ts">
-	import { addEmptyFileIntoDB } from "$lib/crud";
+	import { addEmptyFileIntoDB, getChildrenFromDB } from "$lib/crud";
 	import { clearDB, deleteDB } from "$lib/db";
 
-	let currentId: string | null = $state(null);
+	let currentDirectoryId: string = $state('');
+	let currentDirectoryItems = $derived.by(async () => {
+		return await getChildrenFromDB(currentDirectoryId);
+	});
 
 	function populateDummyFS () {
-		addEmptyFileIntoDB('foo.txt', '');
-		addEmptyFileIntoDB('bar.txt', '');
-		addEmptyFileIntoDB('cat.txt', '');
-		addEmptyFileIntoDB('dog.txt', '');
+		addEmptyFileIntoDB('foo.txt', currentDirectoryId);
+		addEmptyFileIntoDB('bar.txt', currentDirectoryId);
+		addEmptyFileIntoDB('cat.txt', currentDirectoryId);
+		addEmptyFileIntoDB('dog.txt', currentDirectoryId);
 	}
 </script>
 
@@ -24,5 +27,11 @@
 		<button class="btn btn-primary" onclick={populateDummyFS}>Populate</button>
 		<button class="btn btn-primary" onclick={clearDB}>Clear</button>
 		<button class="btn btn-primary" onclick={deleteDB}>Delete</button>
+
+		{#await currentDirectoryItems}
+			Loading...
+		{:then currentDirectoryItems}
+			Found {currentDirectoryItems.length} items
+		{/await}
 	</article>
 </section>
