@@ -23,6 +23,8 @@ export async function openDB (): Promise<IDBDatabase> {
 				store.createIndex('createdAt', 'createdAt', { unique: false });
 				store.createIndex('updatedAt', 'updatedAt', { unique: false });
 				store.createIndex('openedAt', 'openedAt', { unique: false });
+				store.createIndex('isFile', 'isFile', { unique: false });
+				store.createIndex('isDirectory', 'isDirectory', { unique: false });
 				store.createIndex('isFavorite', 'isFavorite', { unique: false });
 			}
 		};
