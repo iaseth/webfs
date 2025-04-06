@@ -6,7 +6,7 @@ export const STORE_NAME = 'nodes';
 
 let dbInstance: IDBDatabase | null = null;
 
-export async function openDatabase (): Promise<IDBDatabase> {
+export async function openDB (): Promise<IDBDatabase> {
 	if (dbInstance) return dbInstance;
 
 	return new Promise((resolve, reject) => {
@@ -44,8 +44,8 @@ export async function openDatabase (): Promise<IDBDatabase> {
 	});
 }
 
-export async function clearDatabase (): Promise<void> {
-	const db = await openDatabase();
+export async function clearDB (): Promise<void> {
+	const db = await openDB();
 
 	return new Promise((resolve, reject) => {
 		const tx = db.transaction('nodes', 'readwrite');
@@ -57,7 +57,7 @@ export async function clearDatabase (): Promise<void> {
 	});
 }
 
-export async function deleteDatabase (): Promise<void> {
+export async function deleteDB (): Promise<void> {
 	return new Promise((resolve, reject) => {
 		const request = indexedDB.deleteDatabase(DB_NAME);
 

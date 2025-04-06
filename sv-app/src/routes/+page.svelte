@@ -1,7 +1,7 @@
 
 <script lang="ts">
 	import { addEmptyFileIntoDB } from "$lib/crud";
-	import { clearDatabase, deleteDatabase } from "$lib/db";
+	import { clearDB, deleteDB } from "$lib/db";
 
 	let currentId: string | null = $state(null);
 
@@ -22,7 +22,7 @@
 		<h1>Welcome to WebFS</h1>
 
 		<button class="btn btn-primary" onclick={populateDummyFS}>Populate</button>
-		<button class="btn btn-primary" onclick={clearDatabase}>Clear</button>
-		<button class="btn btn-primary" onclick={deleteDatabase}>Delete</button>
+		<button class="btn btn-primary" onclick={clearDB}>Clear</button>
+		<button class="btn btn-primary" onclick={deleteDB}>Delete</button>
 	</article>
 </section>

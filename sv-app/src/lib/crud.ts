@@ -1,11 +1,11 @@
 import type { NodeDS } from './types';
-import { STORE_NAME, openDatabase } from './db';
+import { STORE_NAME, openDB } from './db';
 import { getEmptyNode } from './webfs';
 
 
 
 export async function doesNameExistInDB (name: string, parentId: string): Promise<boolean> {
-	const db = await openDatabase();
+	const db = await openDB();
 	return new Promise((resolve) => {
 		const tx = db.transaction('nodes', 'readonly');
 		const store = tx.objectStore('nodes');
@@ -31,7 +31,7 @@ export async function addNodeIntoDB (node: NodeDS): Promise<boolean> {
 	}
 
 	console.log(`Adding '${node.parentId}/${node.name}'`);
-	const db = await openDatabase();
+	const db = await openDB();
 	return new Promise((resolve, reject) => {
 		const tx = db.transaction(STORE_NAME, 'readwrite');
 		const store = tx.objectStore(STORE_NAME);
@@ -54,7 +54,7 @@ export async function addEmptyFolderIntoDB (name: string, parentId: string): Pro
 
 // 📖 Read One
 export async function getNodeFromDB (id: string): Promise<NodeDS | undefined> {
-	const db = await openDatabase();
+	const db = await openDB();
 	const tx = db.transaction(STORE_NAME, 'readonly');
 	const store = tx.objectStore(STORE_NAME);
 	return new Promise((resolve) => {
@@ -66,7 +66,7 @@ export async function getNodeFromDB (id: string): Promise<NodeDS | undefined> {
 
 // 📖 Get All
 export async function getAllNodesFromDB (): Promise<NodeDS[]> {
-	const db = await openDatabase();
+	const db = await openDB();
 	const tx = db.transaction(STORE_NAME, 'readonly');
 	const store = tx.objectStore(STORE_NAME);
 	return new Promise((resolve) => {
@@ -78,7 +78,7 @@ export async function getAllNodesFromDB (): Promise<NodeDS[]> {
 
 // 📖 Get by Parent
 export async function getChildrenFromDB (parentId: string | null): Promise<NodeDS[]> {
-	const db = await openDatabase();
+	const db = await openDB();
 	const tx = db.transaction(STORE_NAME, 'readonly');
 	const store = tx.objectStore(STORE_NAME);
 	const index = store.index('parentId');
@@ -92,7 +92,7 @@ export async function getChildrenFromDB (parentId: string | null): Promise<NodeD
 
 // ✏️ Update
 export async function updateNodeIntoDB (id: string, updates: Partial<NodeDS>): Promise<void> {
-	const db = await openDatabase();
+	const db = await openDB();
 	const tx = db.transaction(STORE_NAME, 'readwrite');
 	const store = tx.objectStore(STORE_NAME);
 	const req = store.get(id);
@@ -112,7 +112,7 @@ export async function updateNodeIntoDB (id: string, updates: Partial<NodeDS>): P
 
 // 🗑️ Delete
 export async function deleteNodeFromDB (id: string): Promise<void> {
-	const db = await openDatabase();
+	const db = await openDB();
 	return new Promise((resolve, reject) => {
 		const tx = db.transaction(STORE_NAME, 'readwrite');
 		const store = tx.objectStore(STORE_NAME);
